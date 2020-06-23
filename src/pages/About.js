@@ -2,19 +2,23 @@ import React from 'react'
 import Hero from '../components/Hero'
 import {Link} from 'react-router-dom'
 import Banner from '../components/Banner'
-import RoomsContainer from '../components/RoomsContainer'
+import InfoAbout from '../components/InfoAbout'
+import Contacts from '../components/Contacts'
 
-const Rooms = () =>{
+
+const About = () =>{
     return (
         <>
-            <Hero hero='roomsHero'>
-                <Banner title="our rooms">
+            <Hero hero='aboutHero'>
+                <Banner title="About Me">
                     <Link to='/' className='btn-primary'>return home</Link>
                 </Banner>
             </Hero>
-            <RoomsContainer />
+            <InfoAbout />
+            <Contacts />
+            
         </>
     )
 };
 
-export default Rooms;
+export default About;

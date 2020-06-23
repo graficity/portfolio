@@ -10,6 +10,7 @@
   --mainBlack: #222;
   --mainGrey: #ececec;
   --darkGrey: #cfcfcf;
+  --nightGrey: #302f2f;
   --mainTransition: all 0.3s linear;
   --mainSpacing: 3px;
   --lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
@@ -86,6 +87,11 @@ h6 {
   padding: 1rem;
   letter-spacing: var(--mainSpacing);
 }
+.empty h3{
+  margin: 0px 20px 90px 20px;
+  text-align: center;
+  padding: 20px;
+}
 /* end of globals */
 /* Navbar */
 .navbar {
@@ -131,16 +137,29 @@ h6 {
 .nav-links a:hover {
   color: var(--primaryColor);
 }
+.esperloos{
+  font-size: 2rem;
+  color: var(--primaryColor);
+  text-decoration: none;
+  text-transform: uppercase;
+  float: left;
+  margin: 0;
+  margin-right: 50px;
+  padding: 0 16px;
+  border: 2px solid var(--primaryColor);
+  font-family: 'Notable', sans-serif;
+  text-shadow: 0 -2px 2px var(--darkGrey);
+}
 
 .show-nav {
-  height: 100px;
+  height: 150px;
 }
 @media screen and (min-width: 768px) {
   .nav-btn {
     display: none;
   }
   .nav-center {
-    max-width: 1170px;
+    max-width: 90vw;
     margin: 0 auto;
     display: flex;
   }
@@ -154,33 +173,45 @@ h6 {
     padding: 0.5rem 0;
   }
 }
+@media screen and (max-width: 768px) {
+  .esperloos{
+    font-size: 1.5rem;
+    margin-right: 30px;
+    padding: 0 10px;
+  }
+}
 /* end of navbar */
 /* Hero */
 .defaultHero,
-.roomsHero {
+.projectsHero, .aboutHero {
   min-height: calc(100vh - 66px);
   background: url("./images/defaultBcg.jpeg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.roomsHero {
-  background-image: url("./images/room-2.jpeg");
+.projectsHero {
+  background-image: url("./images/defaultProject.jpeg");
   min-height: 60vh;
+}
+.aboutHero {
+  background-image: url("./images/defaultAbout.jpeg");
+  min-height: 80vh;
 }
 /* End of Hero */
 /* Banner */
+
 .banner {
   display: inline-block;
   background: rgba(0, 0, 0, 0.5);
   color: var(--mainWhite);
-  padding: 2rem 1rem;
+  padding: 1.7rem 0.8rem;
   text-align: center;
   text-transform: capitalize;
   letter-spacing: var(--mainSpacing);
 }
 .banner h1 {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
 }
 .banner div {
   width: 10rem;
@@ -189,23 +220,23 @@ h6 {
   margin: 1.7rem auto;
 }
 .banner p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 2rem;
 }
 @media screen and (min-width: 576px) {
   .banner {
-    padding: 2rem 3rem;
+    padding: 1rem 2.2rem;
   }
   .banner h1 {
-    font-size: 3rem;
+    font-size: 1.5rem;
   }
 }
 @media screen and (min-width: 992px) {
   .banner {
-    padding: 2rem 6rem;
+    padding: 1.5rem 4rem;
   }
   .banner h1 {
-    font-size: 4rem;
+    font-size: 3rem;
   }
 }
 /* End of Banner */
@@ -271,12 +302,13 @@ h6 {
   }
 }
 /*end of services */
-/* featured rooms */
+/* featured projects */
 
-.featured-rooms {
+.featured-projects {
   padding: 5rem 0;
+  
 }
-.featured-rooms-center {
+.featured-projects-center {
   width: 80vw;
   margin: 0 auto;
   display: grid;
@@ -285,24 +317,25 @@ h6 {
   grid-column-gap: 40px;
 }
 @media screen and (min-width: 776px) {
-  .featured-rooms-center {
+  .featured-projects-center {
     width: 90vw;
     grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
   }
 }
 @media screen and (min-width: 992px) {
-  .featured-rooms-center {
+  .featured-projects-center {
     width: 95vw;
     max-width: 1170px;
   }
 }
-/* end pf featured rooms */
-/* room */
-.room {
+/* end pf featured projects */
+/* project */
+.project {
   box-shadow: var(--lightShadow);
   transition: var(--mainTransition);
+  margin-bottom: 2rem;
 }
-.room:hover {
+.project:hover {
   box-shadow: var(--darkShadow);
 }
 
@@ -314,25 +347,31 @@ h6 {
   display: block;
   transition: var(--mainTransition);
 }
-.price-top {
+.size-top {
   position: absolute;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.8);
   color: var(--mainWhite);
-  padding: 0.3rem 0.6rem 0.5rem;
-  border-bottom-right-radius: 1rem;
+  padding: 1.4rem 0.7rem ;
+  border-bottom-right-radius: 5rem;
   font-size: 0.5rem;
   text-align: center;
   transition: var(--mainTransition);
 }
-.price-top h6 {
-  margin-bottom: 0;
-  font-size: 0.9rem;
+.size-top h6 {
+  margin-top: -.7rem;
+  font-size: .8rem;
   font-weight: 300;
   letter-spacing: var(--mainSpacing);
 }
-.room-link {
+.size-top p{
+  margin-top: -0.6rem;
+  font-size: .6rem;
+  margin-right: .5rem;
+  text-transform: lowercase;
+}
+.project-link {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -345,13 +384,13 @@ h6 {
 .img-container:hover img {
   opacity: 0.3;
 }
-.img-container:hover .price-top {
+.img-container:hover .size-top {
   opacity: 0;
 }
-.img-container:hover .room-link {
+.img-container:hover .project-link {
   transform: translate(-50%, -50%) scale(1);
 }
-.room-info {
+.project-info {
   background: var(--darkGrey);
   text-transform: capitalize;
   padding: 0.5rem 0;
@@ -359,13 +398,13 @@ h6 {
   font-weight: 700;
   letter-spacing: var(--mainSpacing);
 }
-/* end of room  */
-/* single room*/
+/* end of project  */
+/* single project*/
 
-.single-room {
+.single-project {
   padding: 5rem 0 0 0;
 }
-.single-room-images {
+.single-project-images {
   width: 80vw;
   margin: 0 auto;
   display: grid;
@@ -373,11 +412,11 @@ h6 {
   grid-row-gap: 2rem;
   grid-column-gap: 50px;
 }
-.single-room-images img {
+.single-project-images img {
   width: 100%;
   display: block;
 }
-.single-room-info {
+.single-project-info {
   width: 80vw;
   display: grid;
   grid-template-columns: 1fr;
@@ -387,7 +426,7 @@ h6 {
 .info {
   margin: 1rem 0;
 }
-.desc h3 {
+.desc h4 {
   text-transform: capitalize;
   letter-spacing: var(--mainSpacing);
 }
@@ -396,6 +435,7 @@ h6 {
 }
 .info h3,
 .info h6 {
+  font-size:12px;
   text-transform: capitalize;
   letter-spacing: var(--mainSpacing);
 }
@@ -403,11 +443,14 @@ h6 {
 .info h6 {
   font-weight: 300;
 }
-.room-extras {
+
+.project-extras {
   width: 80vw;
   margin: 0 auto 3rem auto;
+  border-top: 2px solid var(--darkGrey);
 }
-.room-extras h6 {
+.project-extras h4 {
+  margin-top:20px;
   text-transform: capitalize;
   letter-spacing: var(--mainSpacing);
 }
@@ -417,15 +460,16 @@ h6 {
   grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
   grid-column-gap: 2rem;
   grid-row-gap: 1rem;
+  
 }
-@media screen and (min-width: 992px) {
-  .single-room-images,
-  .single-room-info,
-  .room-extras {
+@media screen and (max-width: 992px) {
+  .single-project-images,
+  .single-project-info,
+  .project-extras {
     width: 95vw;
     max-width: 1170px;
   }
-  .single-room-info {
+  .single-project-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 2rem;
@@ -434,12 +478,12 @@ h6 {
     padding-left: 3rem;
   }
 }
-/* end of single room*/
-/* roomlist */
-.roomslist {
+/* end of single project*/
+/* projectlist */
+.projectslist {
   padding: 5rem 0;
 }
-.roomslist-center {
+.projectslist-center {
   width: 80vw;
   margin: 0 auto;
   display: grid;
@@ -449,18 +493,18 @@ h6 {
 }
 
 @media screen and (min-width: 776px) {
-  .roomslist-center {
+  .projectslist-center {
     width: 90vw;
   }
 }
 @media screen and (min-width: 992px) {
-  .roomslist-center {
+  .projectslist-center {
     width: 95vw;
     max-width: 1170px;
   }
 }
-/* end of roomlist */
-/*  rooms fitler*/
+/* end of projectlist */
+/*  projects fitler*/
 .filter-container {
   padding: 5rem 0;
 }
@@ -511,4 +555,143 @@ h6 {
     max-width: 1170px;
   }
 }
-/* end of rooms fitler*/
+/* end of projects fitler*/
+
+/* start of info about*/
+.infoAboutMom {
+  display:block ;
+}
+
+.infoAbout {
+  height: auto;
+  width: 100vw;
+display: flex;
+flex-wrap: wrap;
+flex-direction: row;
+ margin: 40px 10px 20px 10px;
+ justify-content: center;
+ align-items: stretch;
+ background-color: var(--lightShadow);
+}
+
+.infoAbout .infoImg{
+  max-width: 42%;
+  min-width: 350px;
+  flex-grow: 1;
+  height: auto;
+  margin: 20px;
+  padding: 20px;
+  margin-right: 50px;
+  background: var(--offWhite);;
+}
+.infoAbout .infoImg img{
+  width: 100%;
+  height: 100%;
+} 
+.infoAbout .infoImg .imageOne{
+  background: url("./images/imageAboutOne.jpg") center/cover no-repeat;
+  
+}
+.infoAbout .infoImg .imageTwo{
+  background: url("./images/imageAboutTwo.jpg") center/cover no-repeat;
+  
+}
+
+.infoAbout p{
+  max-width: 42%;
+  min-width: 350px;
+  height: auto;
+  flex-grow: 1;
+  margin: 20px;
+  padding: 20px;
+  background-color: var(--offWhite);
+}
+.infoAbout span{
+  font-weight: 600;
+}
+
+@media screen and (max-width: 992px) {
+  .infoAbout {
+    height: auto;
+  }
+  .infoAbout p{
+  max-width: 80%;
+  min-width: 650px;
+  }
+  .infoAbout .infoImg{
+    max-width: 80%;
+    min-width: 650px;
+    height: 60vh;
+    }
+}
+
+
+
+@media screen and (max-width: 776px) {
+  .infoAbout p{
+  max-width: 80%;
+  min-width: 280px;
+  }
+  .infoAbout .infoImg{
+    max-width: 80%;
+    min-width: 280px;
+    height: 60vh;
+    
+    }
+}
+
+/* end of info about*/
+
+/* start of info contact*/
+.contactInfo{
+  color: var(--offWhite);
+  background: url('./images/contactBack.jpg');
+  opacity: 0.8;
+  padding: 15px 40px;
+  border-top: 2px solid var(--primaryColor);
+  width: 100%;
+  font-size: 16px;
+}
+.contactInfo p{
+  margin-left: 170px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+.contactInfo h6{
+  margin-left: 100px;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 776px){
+  .contactInfo p{
+    font-size: 10px;
+    margin-top: -10px;
+  margin-bottom: 10px;
+  }
+  .contactInfo h6{
+    font-size: 12px;
+  }
+  .contactInfo h4{
+    font-size: 14px;
+  }
+}
+
+/* end of info contact*/
+
+/* start of single image*/
+.single-image{
+  height:20%;
+}
+.single-image p{
+  text-align: center;
+  font-size: 14pt;
+  text-transform: capitalize;
+  width: 100%;
+  color:var(--offWhite);
+  background: var(--nightGrey);
+}
+
+/* end of single image*/
+
+

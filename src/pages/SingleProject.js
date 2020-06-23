@@ -3,10 +3,11 @@ import defaultBcg from '../images/room-1.jpeg'
 //import Hero from '../components/Hero'
 import Banner from '../components/Banner'
 import {Link} from 'react-router-dom'
-import {RoomContext} from '../context'
+import {ProjectContext} from '../context'
 import StyledHero from '../components/StyledHeros'
+import SingleImage from '../components/SingleImage'
 
-class SingleRoom extends Component {
+class SingleProject extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -14,66 +15,67 @@ class SingleRoom extends Component {
             defaultBcg
         }
     }
-    static contextType = RoomContext;
+    static contextType = ProjectContext;
 
     render() { 
-        const {getRoom} =this.context;
-        const room = getRoom(this.state.slug)
-        console.log(room)
-        if (!room){
+        const {getProject} =this.context;
+        const project = getProject(this.state.slug)
+        console.log(project)
+        if (!project){
             return(
                 <div className='error'>npm 
-                    <h3>no such room could be found...</h3>
-                    <Link to='/rooms' className='btn-primary'>
-                        Back To Rooms
+                    <h3>no such project could be found...</h3>
+                    <Link to='/projects' className='btn-primary'>
+                        Back To Projects
                     </Link>
                 </div>
             )
         }
-        const {name, description, capacity, size, price,extras,
-                breakfast, pets, images} = room
+        const {name, description, kind, size, year,extras,
+                sketch, render, images} = project
         const [mainImg, ...defaultImg] = images
         return ( 
             <>
                 <StyledHero img={mainImg || this.state.defaultBcg}>
-                        <Banner title={`${name} room`}>
-                            <Link to='/rooms' className='btn-primary' >
-                                Back To Rooms
+                        <Banner title={`${name} project`}>
+                            <Link to='/projects' className='btn-primary' >
+                                Back To Projects
                             </Link>
                         </Banner>
                 </StyledHero>
 
-                <section className="single-room">
-                    <div className="single-room-images">
+                <section className="single-project">
+                    <div className="single-project-images">
                         {defaultImg.map((item, index) => (
-                        <img key={index} src={item} alt={name} />)
+                        /*<img key={index} src={item} alt={name} id={name} />*/
+                        <SingleImage key={index} src={item} alt={name} id={name} />
+                        )
                         )}
                     </div>
-                    <div className="single-room-info">
+                    <div className="single-project-info">
                         <article className='desc'>
-                            <h3>details</h3>
+                            <h4>details</h4>
                             <p>{description}</p>
                         </article>
                         <article className="info"> 
-                            <h6>price: ${price}</h6>
-                            <h6>size: ${size} SQFT</h6>
+                            <h6>year: {year}</h6>
+                            <h6>size: {size} Sq m</h6>
                             <h6>
-                                max capacity : {""}
-                                {capacity>1 ? `${capacity} people `: `${capacity} person`
-                                }
+                                Class : {""}
+                                {kind}
                             </h6>
                             <h6>
-                                {pets?"pets allowed":"no pets allowed"}
+                                {render?"render: ✓":"no renders"}
                             </h6>
                             <h6>
-                                {breakfast && "free breakfast included"}
+                                {sketch? "sketch: ✓":"no sketches"}
                             </h6>
                         </article>
                     </div>
                 </section>
 
-                <section className="room-extras">
-                    <h6>extras</h6>
+                <section className="project-extras">
+                    <h4>Spaces</h4>
                     <ul className='extras'>
                         {extras.map((item, index) =>{
                             return <li key={index}>- {item}</li>
@@ -85,4 +87,4 @@ class SingleRoom extends Component {
     }
 }
  
-export default SingleRoom;
+export default SingleProject;

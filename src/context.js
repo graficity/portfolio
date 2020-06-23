@@ -3,42 +3,42 @@ import React, { Component } from 'react'
 import Client from './contentful'
 
 
-const RoomContext = React.createContext();
+const ProjectContext = React.createContext();
 
-class RoomProvider extends Component {
+class ProjectProvider extends Component {
     state={
-        rooms: [],
-        sortedRooms: [],
-        featuredRooms: [],
+        projects: [],
+        sortedProjects: [],
+        featuredProjects: [],
         loading: true,
         type:"all",
-        capacity: 1,
-        price:0,
-        minPrice:0,
-        maxPrice:0,
+        kind: "all",
+        year:0,
+        minYear:2003,
+        maxYear:0,
         minSize:0,
         maxSize:0,
-        breakfast: false,
-        pets: false
+        sketch: false,
+        render: false
     }
 
     getdata = async () => {
         try{
             let response = await Client.getEntries({
-                content_type : "beachResortRoomExample",
+                content_type : "myFolio",
                 //order: 'sys.createdAt'
-                order: '-fields.price'
+                order: '-fields.year'
             })
-            let rooms = this.formatData(response.items)
-        let featuredRooms = rooms.filter(room => room.featured === true)
-        let maxPrice = Math.max(...rooms.map(item => item.price))
-        let maxSize = Math.max(...rooms.map(item => item.size))
+            let projects = this.formatData(response.items)
+        let featuredProjects = projects.filter(project => project.featured === true)
+        let maxYear = Math.max(...projects.map(item => item.year))
+        let maxSize = Math.max(...projects.map(item => item.size))
         this.setState({
-            rooms, 
-            featuredRooms, 
-            sortedRooms: rooms,
+            projects, 
+            featuredProjects, 
+            sortedProjects: projects,
             loading: false,
-            maxPrice: maxPrice,
+            maxYear: maxYear,
             maxSize: maxSize,
         })
         }
@@ -56,16 +56,16 @@ class RoomProvider extends Component {
             let id= item.sys.id;
             let images = item.fields.images.map(image => image.fields.file.url);
                 
-            let room= {...item.fields, images, id}
-            return room
+            let project= {...item.fields, images, id}
+            return project
         })
         return tempItems;
     }
 
-    getRoom =(slug) =>{
-        let tempRooms = [...this.state.rooms]
-        const room = tempRooms.find((room) => room.slug === slug)
-        return room
+    getProject =(slug) =>{
+        let tempProjects = [...this.state.projects]
+        const project = tempProjects.find((project) => project.slug === slug)
+        return project
     }
 
     handleChange = event => {
@@ -74,51 +74,52 @@ class RoomProvider extends Component {
         const name = event.target.name
         this.setState({
             [name]:value
-        }, this.filterRooms)
+        }, this.filterProjects)
     }
 
-    filterRooms = () => {
-        let {rooms, type, capacity, price, minSize, maxSize, breakfast, pets}
+    filterProjects = () => {
+        let {projects, type, kind, year, minSize, maxSize, sketch, render}
      = this.state
-     let tempRooms = [...rooms]
-     capacity = parseInt(capacity)
-     price = parseInt(price);
+     let tempProjects = [...projects]
+
+     /*alternative = parseInt(alternative)
+     year = parseInt(year);*/
 
      if(type !== 'all'){
-         tempRooms = tempRooms.filter(room => room.type === type)
+         tempProjects = tempProjects.filter(project => project.type === type)
      }
 
-     if(capacity !== 1){
-         tempRooms = tempRooms.filter(room => room.capacity <= capacity)
+     if(kind !== 'all'){
+         tempProjects = tempProjects.filter(project => project.kind === kind)
      }
 
-     tempRooms = tempRooms.filter(room => room.price >= price)
-     tempRooms = tempRooms.filter( room => room.size <= maxSize && room.size >= minSize )
+     tempProjects = tempProjects.filter(project => project.year >= year)
+     tempProjects = tempProjects.filter( project => project.size <= maxSize && project.size >= minSize )
 
-     if(breakfast){
-         tempRooms = tempRooms.filter( room => room.breakfast === true )
+     if(sketch){
+         tempProjects = tempProjects.filter( project => project.sketch === true )
      }
-     if(pets){
-         tempRooms = tempRooms.filter(room => room.pets === true)
+     if(render){
+         tempProjects = tempProjects.filter(project => project.render === true)
      }
 
      this.setState({
-         sortedRooms:tempRooms
+         sortedProjects:tempProjects
      })
     }
 
     render(){
         return(
-            <RoomContext.Provider 
+            <ProjectContext.Provider 
             value={{...this.state,
-                    getRoom: this.getRoom,
+                    getProject: this.getProject,
                     handleChange:this.handleChange
             }}>
                 {this.props.children}
-            </RoomContext.Provider>
+            </ProjectContext.Provider>
         )
     }
 }
-const RoomConsumer = RoomContext.Consumer;
+const ProjectConsumer = ProjectContext.Consumer;
 
-export { RoomProvider, RoomConsumer, RoomContext}
+export { ProjectProvider, ProjectConsumer, ProjectContext}

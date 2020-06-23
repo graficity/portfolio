@@ -3,32 +3,32 @@ import {Link} from 'react-router-dom'
 import defaultImg from '../images/room-1.jpeg'
 import PropTypes from'prop-types'
 
-export default function Room ({room}){
-    const{name, slug, images, price} = room
+export default function Project ({project}){
+    const{name, slug, images, size} = project
     return(
-        <article className='room'>
+        <article className='project'>
             <div className='img-container'>
                 <img src={images[0] || defaultImg} 
-                alt='single-room' />
-                <div className='price-top'>
-                    <h6>${price}</h6>
-                    <p>per night</p>
+                alt='single-project' />
+                <div className='size-top'>
+                    <h6>{size}</h6>
+                    <p>Sq m</p>
                 </div>
-                <Link to={`/rooms/${slug}`} className='btn-primary room-link'>
+                <Link to={`/projects/${slug}`} className='btn-primary project-link'>
                     Features
                 </Link>
             </div>
-            <p className='room-info'>{name}</p>
+            <p className='project-info'>{name}</p>
         </article>
     )
 }
 
-Room.propTypes = {
-    room: PropTypes.shape({
+Project.propTypes = {
+    project: PropTypes.shape({
         name: PropTypes.string.isRequired,
         slug: PropTypes.string.isRequired,
         images: PropTypes.arrayOf(PropTypes.string).isRequired,
-        price: PropTypes.number.isRequired
+        size: PropTypes.number.isRequired
     })
 }
 
